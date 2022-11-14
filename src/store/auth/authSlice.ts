@@ -17,7 +17,6 @@ const initialState: AuthState = {
   uid: null,
   errorMessage: null,
 };
-console.log();
 
 export const authSlice = createSlice({
   name: "auth",
