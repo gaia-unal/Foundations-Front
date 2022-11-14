@@ -1,23 +1,41 @@
 import { Form, Formik } from "formik";
-import { FcGoogle } from "react-icons/fc";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { startRegisterUser } from "../../store/auth/authThunk";
 import { InputText } from "../components/InputText";
-import { FieldsLogin, FieldsRegister } from "../data/FormFields";
+import { FieldsRegister } from "../data/FormFields";
 
 export const Register = () => {
   const navigate: NavigateFunction = useNavigate();
+  const { errorMessage } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const onClickLogin = () => {
     navigate("/");
   };
+  const onClickRegister = (
+    email: string,
+    password: string,
+    displayName: string
+  ) => {
+    dispatch(startRegisterUser(email, password, displayName));
+  };
+
   return (
     <div className="bg-white w-1/3 p-10 rounded-xl shadow-md shadow-paragraph">
       <h1 className="block text-3xl font-medium text-primary mb-6">
         Crear Cuenta
       </h1>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={{
+          displayName: "",
+          email: "",
+          password: "",
+          validatePassword: "",
+        }}
+        onSubmit={({ email, password, displayName }) =>
+          onClickRegister(email, password, displayName)
+        }
         validationSchema={Yup.object({
           displayName: Yup.string()
             .required("El nombre es obligatorio")
@@ -44,6 +62,11 @@ export const Register = () => {
             >
               Ya tengo una cuenta
             </p>
+          </div>
+          <div className="flex justify-center mt-2">
+            {errorMessage && (
+              <span className="text-red-700 text-sm">{errorMessage}</span>
+            )}
           </div>
           <button
             className="group relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 text-lg shadow mt-6"
