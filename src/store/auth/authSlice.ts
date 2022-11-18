@@ -39,7 +39,7 @@ export const authSlice = createSlice({
       state.errorMessage = null;
     },
     loginError: (state, { payload }) => {
-      state.status = "error";
+      state.status = "unauthenticated";
       state.displayName = null;
       state.email = null;
       state.photoURL = null;

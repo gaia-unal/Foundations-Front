@@ -4,7 +4,7 @@ import {
   singInWithGoogle,
 } from "../../firebase/auth/providers";
 import { AppDispatch } from "../store";
-import { checking, login, loginError } from "./authSlice";
+import { checking, login, loginError, logout } from "./authSlice";
 
 export const startLoginWithEmailPassword = (
   email: string,
@@ -33,7 +33,7 @@ export const startLoginWhitGoogle = () => {
 
 export const startLogout = () => {
   return (dispatch: AppDispatch) => {
-    dispatch(loginError(null));
+    dispatch(logout());
   };
 };
 
