@@ -41,3 +41,11 @@ export const FieldsRegister: InputText[] = [
     placeholder: "********",
   },
 ];
+export const FieldsResetPassword: InputText[] = [
+  {
+    name: "email",
+    label: "Ingresar correo electrónico",
+    type: "email",
+    placeholder: "email@example.com",
+  },
+];
