@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
@@ -79,5 +80,13 @@ export const createUserEmailAndPassword = async (
       error: true,
       message: error.message,
     };
+  }
+};
+
+export const recoverPassword = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(FirebaseAuth, email);
+  } catch (error: any) {
+    console.log(error);
   }
 };
