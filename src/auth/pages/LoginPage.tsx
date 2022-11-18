@@ -7,7 +7,7 @@ import {
   startLoginWhitGoogle,
   startLoginWithEmailPassword,
 } from "../../store/auth/authThunk";
-import { InputText } from "../components/InputText";
+import { InputText } from "../../ui/components/InputText";
 import { FieldsLogin } from "../data/FormFields";
 
 export const LoginPage = () => {
@@ -16,6 +16,9 @@ export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const onClickRegister = () => {
     navigate("/register");
+  };
+  const onClickRecovery = () => {
+    navigate("/recovery");
   };
   const onClickLogin = (email: string, password: string) => {
     dispatch(startLoginWithEmailPassword(email, password));
@@ -45,7 +48,13 @@ export const LoginPage = () => {
           {FieldsLogin.map((field) => (
             <InputText key={field.name} {...field} />
           ))}
-          <div className="flex flex-row-reverse">
+          <div className="flex place-content-between mt-2">
+            <p
+              className="underline cursor-pointer text-blue-900"
+              onClick={onClickRecovery}
+            >
+              Olvidaste tu contraseña?
+            </p>
             <p
               onClick={onClickRegister}
               className="underline cursor-pointer text-blue-900"
