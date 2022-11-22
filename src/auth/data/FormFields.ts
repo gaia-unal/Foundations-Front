@@ -1,4 +1,4 @@
-import { InputText } from "../interface/inputText.interface";
+import { InputText } from "../../common/interfaces/inputText.interface";
 
 export const FieldsLogin: InputText[] = [
   {

@@ -7,7 +7,7 @@ import {
   startLoginWhitGoogle,
   startLoginWithEmailPassword,
 } from "../../store/auth/authThunk";
-import { InputText } from "../../ui/components/InputText";
+import { InputText } from "../../common/components/InputText";
 import { FieldsLogin } from "../data/FormFields";
 
 export const LoginPage = () => {

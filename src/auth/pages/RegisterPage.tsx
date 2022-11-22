@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { startRegisterUser } from "../../store/auth/authThunk";
-import { InputText } from "../components/InputText";
+import { InputText } from "../../common/components/InputText";
 import { FieldsRegister } from "../data/FormFields";
 
 export const Register = () => {

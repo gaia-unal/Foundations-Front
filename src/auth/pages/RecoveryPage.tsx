@@ -3,7 +3,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { recoverPassword } from "../../firebase/auth/providers";
 import { useAppSelector } from "../../hooks/useRedux";
-import { InputText } from "../../ui/components/InputText";
+import { InputText } from "../../common/components/InputText";
 import { FieldsResetPassword } from "../data/FormFields";
 import { AiFillCaretLeft } from "react-icons/ai";
 import Swal from "sweetalert2";
