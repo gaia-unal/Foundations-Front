@@ -13,7 +13,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
 }) => {
   return (
     <div
-      className={`fixed inset-0 h-screen w-screen bg-black opacity-80 ${
+      className={`fixed inset-0 h-screen w-screen bg-black opacity-95 ${
         !isShowing
           ? "hidden"
           : "flex justify-center items-center content-center"
