@@ -1,8 +1,6 @@
 import { InputText } from "../../common/interfaces/inputText.interface";
 
-// identificación, nombre, logo-imagen, dirección, teléfonos, e-mail y un campo abierto de
-// observaciones.
-export const textFieldsNewFundation: InputText[] = [
+export const textFieldsNewFoundation: InputText[] = [
   {
     name: "identification",
     type: "text",

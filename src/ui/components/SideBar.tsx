@@ -1,7 +1,7 @@
 import { IoMdAdd } from "react-icons/io";
 import { LoginPage } from "../../auth/pages/LoginPage";
 import { Modal } from "../../common/components/Modal";
-import { FundationForm } from "../../fundations/components/FundationForm";
+import { FoundationForm } from "../../foundations/components/FoundationForm";
 import { useModal } from "../../hooks/useModal";
 import SideBarItem, { SideBarItemProps } from "./SideBarItem";
 
@@ -34,7 +34,7 @@ export const SideBar = () => {
       </button>
       <Modal isShowing={isShowing} closeModal={closeModal}>
         <div>
-          <FundationForm />
+          <FoundationForm />
         </div>
       </Modal>
     </>

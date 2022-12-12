@@ -3,9 +3,9 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { InputText } from "../../common/components/InputText";
-import { textFieldsNewFundation } from "../data/inputFieldFundation";
+import { textFieldsNewFoundation } from "../data/inputFieldFoundation";
 
-export const FundationForm = () => {
+export const FoundationForm = () => {
   const navigate: NavigateFunction = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -50,7 +50,7 @@ export const FundationForm = () => {
       >
         <Form>
           <div className="grid grid-cols-2 gap-4">
-            {textFieldsNewFundation.map((field) => (
+            {textFieldsNewFoundation.map((field) => (
               <InputText key={field.name} {...field} />
             ))}
             <div className="col-span-2">

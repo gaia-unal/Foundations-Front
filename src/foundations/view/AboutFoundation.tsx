@@ -1,6 +1,6 @@
 import React from "react";
 
-const fundationInfo = {
+const foundationInfo = {
   Nombre: "Fundación x",
   Identificacion: "123456789",
   Direccion: "Calle 123",
@@ -9,10 +9,10 @@ const fundationInfo = {
   Descripcion: "Fundacion x es una fundacion que ayuda a los niños de la calle",
 };
 
-export const AboutFundation = () => {
+export const AboutFoundation = () => {
   return (
     <div className="w-full mt-6 bg-white">
-      {Object.entries(fundationInfo).map(([key, value]) => (
+      {Object.entries(foundationInfo).map(([key, value]) => (
         <div key={key} className="mb-2 flex flex-col">
           <h1 className="text-xl font-semibold">{key}</h1>
           <h1 className="pl-2">{value}</h1>

@@ -9,7 +9,7 @@ export interface SideBarItemProps {
 const SideBarItem: FunctionComponent<SideBarItemProps> = ({ name }) => {
   return (
     <NavLink
-      to={`fundation/${name.replace(" ", "").toLowerCase()}`}
+      to={`foundation/${name.replace(" ", "").toLowerCase()}`}
       className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-200 cursor-pointer"
     >
       <AiFillRightCircle className="text-primary" />
