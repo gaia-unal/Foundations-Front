@@ -6,7 +6,7 @@ interface InputTextProps {
   label: string;
   type: string;
   className?: string;
-  placeholder: string;
+  placeholder?: string;
 }
 
 export const InputText: FunctionComponent<InputTextProps> = ({
