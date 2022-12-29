@@ -16,7 +16,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="bg-gray-300 w-full p-6 shadow-sm shadow-paragraph">
+    <div className="bg-gray-300 w-full p-4 mb-6 shadow-sm shadow-paragraph">
       <div className="flex justify-between items-center">
         <SiConfluence
           className="text-4xl text-primary cursor-pointer"

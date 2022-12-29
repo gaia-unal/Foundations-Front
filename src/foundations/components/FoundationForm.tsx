@@ -1,16 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { InputText } from "../../common/components/InputText";
+import { useAppDispatch } from "../../hooks/useRedux";
 import { textFieldsNewFoundation } from "../data/inputFieldFoundation";
 
 export const FoundationForm = () => {
-  const navigate: NavigateFunction = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   return (
-    <div className="bg-white w-full p-10 ">
+    <div className="bg-white w-full p-10 rounded-xl">
       <h1 className="block text-3xl font-medium text-primary mb-6">
         Añadir fundación
       </h1>

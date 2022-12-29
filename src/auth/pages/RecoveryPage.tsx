@@ -30,10 +30,10 @@ export const RecoveryPage = () => {
 
   return (
     <div className="bg-white w-1/3 p-10 rounded-xl shadow-md shadow-paragraph">
-      <div className="flex gap-4 content-center items-center mb-6">
+      <div className="flex h-10 gap-4 content-center items-center mb-6">
         <AiFillCaretLeft
           onClick={onClickBack}
-          className="bg-gray-200 rounded-sm cursor-pointer text-3xl hover:bg-slate-600 hover:text-white"
+          className="bg-gray-200 p-1 rounded-sm cursor-pointer text-3xl hover:bg-slate-600 hover:text-white"
         />
         <h1 className="block text-3xl font-medium text-primary ">
           Recuperar cuenta
