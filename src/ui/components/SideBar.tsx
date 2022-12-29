@@ -1,6 +1,7 @@
+import { Modal } from "@mui/material";
+import { borderRadius } from "@mui/system";
 import { IoMdAdd } from "react-icons/io";
-import { LoginPage } from "../../auth/pages/LoginPage";
-import { Modal } from "../../common/components/Modal";
+// import { Modal } from "../../common/components/Modal";
 import { FoundationForm } from "../../foundations/components/FoundationForm";
 import { useModal } from "../../hooks/useModal";
 import SideBarItem, { SideBarItemProps } from "./SideBarItem";
@@ -17,7 +18,7 @@ export const SideBar = () => {
   return (
     <>
       <div className="bg-white w-full p-6 rounded-md font-semibold shadow-sm shadow-paragraph">
-        <h1>Fundaciones</h1>
+        <h1 className="font-semibold text-2xl">Fundaciones</h1>
         {Items.map((item) => (
           <SideBarItem key={item.name} {...item} />
         ))}
@@ -32,11 +33,27 @@ export const SideBar = () => {
           Crear nueva fundación
         </span>
       </button>
-      <Modal isShowing={isShowing} closeModal={closeModal}>
-        <div>
+      <Modal
+        open={isShowing}
+        onClose={closeModal}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div className="w-3/4 flex">
           <FoundationForm />
+          <button
+            className="text-primary self-start -ml-8 text-5xl"
+            onClick={closeModal}
+          >
+            &times;
+          </button>
         </div>
       </Modal>
+      {/* <Modal isShowing={isShowing} closeModal={closeModal}>
+      </Modal> */}
     </>
   );
 };
