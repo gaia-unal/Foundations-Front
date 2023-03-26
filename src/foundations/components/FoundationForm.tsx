@@ -18,6 +18,7 @@ export const FoundationForm = () => {
         initialValues={{
           identification: "",
           name: "",
+          adminEmail: "",
           address: "",
           email: "",
           phone: "",
@@ -35,6 +36,9 @@ export const FoundationForm = () => {
           name: Yup.string()
             .required("El nombre es obligatorio")
             .min(6, "El nombre debe tener al menos 6 caracteres"),
+          adminEmail: Yup.string()
+            .email("El email no es válido")
+            .required("El email es obligatorio"),
           address: Yup.string()
             .required("La dirección es obligatoria")
             .min(6, "La dirección debe tener al menos 6 caracteres"),
@@ -53,7 +57,7 @@ export const FoundationForm = () => {
             {textFieldsNewFoundation.map((field) => (
               <InputText key={field.name} {...field} />
             ))}
-            <div className="col-span-2">
+            <div>
               <label
                 htmlFor="description"
                 className="block mb-2 text-base font-medium text-label"
@@ -63,14 +67,15 @@ export const FoundationForm = () => {
               <Field
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 name="description"
+                placeholder="Descripción de la fundación"
                 as="textarea"
               />
               <ErrorMessage name="description" />
             </div>
           </div>
-          <div className="flex gap-6 mt-5">
+          <div className="flex items-center justify-center gap-6 mt-5">
             <button
-              className="group relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 text-lg shadow"
+              className="group relative h-12 w-1/3 overflow-hidden rounded-lg bg-gray-200 text-lg shadow"
               type="submit"
             >
               <div className="absolute inset-0 w-3 bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>

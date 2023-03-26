@@ -14,6 +14,12 @@ export const textFieldsNewFoundation: InputText[] = [
     placeholder: "Nombre de la fundación",
   },
   {
+    name: "adminEmail",
+    type: "email",
+    label: "Email de administrador",
+    placeholder: "admin@example.com",
+  },
+  {
     name: "address",
     type: "text",
     label: "Dirección",
@@ -37,4 +43,10 @@ export const textFieldsNewFoundation: InputText[] = [
     label: "Logo",
     placeholder: "Logo de la fundación",
   },
+  // {
+  //   name: "description",
+  //   type: "textarea",
+  //   label: "Descripción",
+  //   placeholder: "Descripción de la fundación",
+  // },
 ];
