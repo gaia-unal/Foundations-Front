@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { FirebaseAuth } from "../config";
+import { FirebaseAuth, FirebaseApp } from "../config";
 
 export const singInWithGoogle = async () => {
   try {
@@ -41,6 +41,7 @@ export const loginWithEmailAndPassword = async (
       password
     );
 
+    // const uidprueba = ;
     const { displayName, photoURL, uid } = user;
     return {
       error: false,
@@ -68,6 +69,7 @@ export const createUserEmailAndPassword = async (
     if (user) {
       await updateProfile(user, { displayName });
     }
+
     return {
       error: false,
       uid: user?.uid,
@@ -89,4 +91,8 @@ export const recoverPassword = async (email: string) => {
   } catch (error: any) {
     console.log(error);
   }
+};
+
+export const signOutFirebase = async () => {
+  return await FirebaseAuth.signOut();
 };
