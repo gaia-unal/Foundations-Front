@@ -17,7 +17,7 @@ export const ReviewNewMember = ({ values }: { values: member }) => {
   return (
     <>
       <div className="w-full mt-6 bg-white">
-        <h1 className="text-xl font-semibold border-b-2">
+        <h1 className="text-xl font-semibold border-b-2 mb-2">
           Informacion personal
         </h1>
         <div className="grid grid-cols-2">
@@ -31,7 +31,7 @@ export const ReviewNewMember = ({ values }: { values: member }) => {
               </div>
             ) : (
               <div key={key} className="col-span-2 mt-8">
-                <h1 className="text-xl font-semibold border-b-2">
+                <h1 className="text-xl font-semibold border-b-2 mb-2">
                   {keysTranslate[key as keyof typeof keysTranslate]}
                 </h1>
                 <ReviewItem

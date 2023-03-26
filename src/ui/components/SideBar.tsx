@@ -27,7 +27,7 @@ export const SideBar = () => {
         className="mt-4 p-3 w-full flex items-center justify-center group relative overflow-hidden rounded-lg bg-white text-lg shadow"
         onClick={openModal}
       >
-        <div className="absolute inset-0 w-4 bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+        <div className="absolute inset-0 w-[7%] bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
         <span className="relative text-black group-hover:text-white flex justify-center items-center gap-2">
           <IoMdAdd className="" />
           Crear nueva fundación
