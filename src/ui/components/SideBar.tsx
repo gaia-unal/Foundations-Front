@@ -5,6 +5,7 @@ import { IoMdAdd } from "react-icons/io";
 import { FoundationForm } from "../../foundations/components/FoundationForm";
 import { useModal } from "../../hooks/useModal";
 import SideBarItem, { SideBarItemProps } from "./SideBarItem";
+import { useAuth } from "../../hooks/useAuth";
 
 const Items: SideBarItemProps[] = [
   { name: "Fundacion 1" },
@@ -13,6 +14,7 @@ const Items: SideBarItemProps[] = [
 ];
 
 export const SideBar = () => {
+  const { rol } = useAuth();
   const { isShowing, closeModal, openModal } = useModal();
 
   return (
@@ -23,16 +25,18 @@ export const SideBar = () => {
           <SideBarItem key={item.name} {...item} />
         ))}
       </div>
-      <button
-        className="mt-4 p-3 w-full flex items-center justify-center group relative overflow-hidden rounded-lg bg-white text-lg shadow"
-        onClick={openModal}
-      >
-        <div className="absolute inset-0 w-[7%] bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
-        <span className="relative text-black group-hover:text-white flex justify-center items-center gap-2">
-          <IoMdAdd className="" />
-          Crear nueva fundación
-        </span>
-      </button>
+      {rol === "superadmin" && (
+        <button
+          className="mt-4 p-3 w-full flex items-center justify-center group relative overflow-hidden rounded-lg bg-white text-lg shadow"
+          onClick={openModal}
+        >
+          <div className="absolute inset-0 w-[7%] bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+          <span className="relative text-black group-hover:text-white flex justify-center items-center gap-2">
+            <IoMdAdd className="" />
+            Crear nueva fundación
+          </span>
+        </button>
+      )}
       <Modal
         open={isShowing}
         onClose={closeModal}
