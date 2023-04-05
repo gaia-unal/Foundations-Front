@@ -6,6 +6,7 @@ interface AuthState {
   displayName: string | null;
   photoURL: string | null;
   uid: string | null;
+  rol: string | null;
   errorMessage: string | null;
 }
 
@@ -15,6 +16,7 @@ const initialState: AuthState = {
   displayName: null,
   photoURL: null,
   uid: null,
+  rol: null,
   errorMessage: null,
 };
 
@@ -28,6 +30,7 @@ export const authSlice = createSlice({
       state.displayName = payload.displayName;
       state.photoURL = payload.photoURL;
       state.uid = payload.uid;
+      state.rol = payload.rol;
       state.errorMessage = null;
     },
     logout: (state) => {
@@ -36,6 +39,7 @@ export const authSlice = createSlice({
       state.displayName = null;
       state.photoURL = null;
       state.uid = null;
+      state.rol = null;
       state.errorMessage = null;
     },
     loginError: (state, { payload }) => {
@@ -44,6 +48,7 @@ export const authSlice = createSlice({
       state.email = null;
       state.photoURL = null;
       state.uid = null;
+      state.rol = null;
       state.errorMessage = payload;
     },
     checking: (state) => {
@@ -52,6 +57,7 @@ export const authSlice = createSlice({
       state.email = null;
       state.photoURL = null;
       state.uid = null;
+      state.rol = null;
       state.errorMessage = null;
     },
   },
