@@ -1,13 +1,14 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useCheckAuth } from "./hooks/useCheckAuth";
+import { useAuth } from "./hooks/useAuth";
 import { LoadingPage } from "./ui/pages/LoadingPage";
 
 const PublicRouter = lazy(() => import("./router/PublicRouter"));
 const PrivateRouter = lazy(() => import("./router/PrivateRouter"));
 
 export const AppRouter = () => {
-  const status = useCheckAuth();
+  const { checkAuth, status } = useAuth();
+  checkAuth();
   if (status === "checking") {
     return <LoadingPage />;
   }
