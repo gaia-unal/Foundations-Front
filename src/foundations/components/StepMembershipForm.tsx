@@ -1,12 +1,15 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useMembers } from "../../hooks/useMembers";
+import { useAppSelector } from "../../hooks/useRedux";
 import { useSteps } from "../../hooks/useSteps";
-import { initialValuesStepForm } from "../data/stepFormModel/initialValuesStepForm";
+import {
+  useAddMemberMutation,
+  useUpdateMemberMutation,
+} from "../../store/fundations/foundation.api";
 import { validationSchemaStepForm } from "../data/stepFormModel/validationSchemaStepForm";
-import { BasicInformationMember } from "../interface/basicInformationMember.interface";
+import { transformMember } from "../helper/transformMember";
 import { member } from "../interface/member.interface";
 import { ReviewNewMember } from "../view/ReviewNewMember";
 import { ActivityForm } from "./formSteps/ActivityForm";
@@ -17,8 +20,28 @@ import { FamilyForm } from "./formSteps/FamilyForm";
 export const StepMembershipForm = () => {
   const { step: activeStep, nextStep, prevStep } = useSteps();
   const { uid } = useParams();
-  const { startAddMember } = useMembers();
   const navigate = useNavigate();
+  const { activeMember } = useAppSelector((state) => state.foundation);
+  const { pathname } = useLocation();
+  const isEdit = pathname.includes("edit");
+  console.log(uid);
+
+  const [
+    startAddMemberMutation,
+    {
+      error: AddingMemberError,
+      isError: isAddingMemberError,
+      isSuccess,
+      isUninitialized,
+    },
+  ] = useAddMemberMutation();
+
+  console.log(isAddingMemberError, isSuccess, isUninitialized);
+
+  const [
+    startUpdateMemberMutation,
+    { error: UpdatingMemberError, isError: isUpdatingMemberError },
+  ] = useUpdateMemberMutation();
 
   const currentValidationStep = validationSchemaStepForm[activeStep];
   const steps = [
@@ -28,40 +51,60 @@ export const StepMembershipForm = () => {
     "Actividad comercial",
     "Revision de datos",
   ];
-  const ShowALert = ({
-    name,
-    lastName,
-    identification,
-    address,
-    phone,
-    email,
-    birthDate,
-  }: BasicInformationMember) => {
+  const ShowALert = () => {
     Swal.fire({
       title: "completado!",
-      text: "Se ha registrado correctamente el nuevo miembro",
+      text: "Se ha registrado correctamente el miembro",
       icon: "success",
       confirmButtonText: "Aceptar",
     }).then((result) => {
       if (result.isConfirmed) {
-        startAddMember({
-          name,
-          lastName,
-          identification,
-          address,
-          phone,
-          email,
-          birthDate,
-        });
-        navigate(`/foundation/${uid}/members`);
+        isEdit ? navigate(`/foundation/${uid}/members`) : navigate(`/`);
       }
     });
   };
-  const onSubmitFormSteps = (e: any) => {
-    if (activeStep === steps.length - 1) {
-      ShowALert(e);
+  const onSubmitFormSteps = async (e: member) => {
+    if (activeStep !== steps.length - 1) {
+      return nextStep();
+    }
+
+    if (isEdit) {
+      const updatedMember: member = transformMember(e);
+      console.log(uid);
+
+      await startUpdateMemberMutation({
+        id: uid as string,
+        member: updatedMember,
+      });
+      if (isUpdatingMemberError) {
+        Swal.fire({
+          title: "Error!",
+          text: "No se ha podido actualizar el miembro",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        });
+        return prevStep();
+      } else {
+        ShowALert();
+      }
+
+      // await startUpdateMemberMutation({ ...e });
     } else {
-      nextStep();
+      await startAddMemberMutation({
+        member: e,
+        id: uid as string,
+      });
+      if (isAddingMemberError) {
+        Swal.fire({
+          title: "Error!",
+          text: "No se ha podido registrar el nuevo miembro",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+        });
+        return prevStep();
+      } else {
+        ShowALert();
+      }
     }
   };
 
@@ -92,7 +135,7 @@ export const StepMembershipForm = () => {
         ))}
       </Stepper>
       <Formik
-        initialValues={initialValuesStepForm}
+        initialValues={activeMember}
         validationSchema={currentValidationStep}
         onSubmit={onSubmitFormSteps}
       >
