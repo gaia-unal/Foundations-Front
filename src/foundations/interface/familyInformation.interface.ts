@@ -1,4 +1,5 @@
 export interface Family {
+  id?: string;
   relation: string;
   name: string;
   lastName: string;
