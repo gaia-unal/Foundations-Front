@@ -1,31 +1,34 @@
 import { Modal } from "@mui/material";
-import { borderRadius } from "@mui/system";
 import { IoMdAdd } from "react-icons/io";
-// import { Modal } from "../../common/components/Modal";
+import { useLocation } from "react-router-dom";
 import { FoundationForm } from "../../foundations/components/FoundationForm";
-import { useModal } from "../../hooks/useModal";
-import SideBarItem, { SideBarItemProps } from "./SideBarItem";
 import { useAuth } from "../../hooks/useAuth";
-
-const Items: SideBarItemProps[] = [
-  { name: "Fundacion 1" },
-  { name: "Fundacion 2" },
-  { name: "Fundacion 3" },
-];
+import { useModal } from "../../hooks/useModal";
+import {
+  resFoundationHeaders,
+  useGetFoundationsHeadersQuery,
+} from "../../store/fundations/foundation.api";
+import { LoadingPage } from "../pages/LoadingPage";
+import SideBarItem from "./SideBarItem";
 
 export const SideBar = () => {
   const { rol } = useAuth();
   const { isShowing, closeModal, openModal } = useModal();
 
+  const { pathname } = useLocation();
+  const { data: foundationNames, isLoading } = useGetFoundationsHeadersQuery();
+
+  if (isLoading) return <LoadingPage />;
+
   return (
     <>
       <div className="bg-white w-full p-6 rounded-md font-semibold shadow-sm shadow-paragraph">
         <h1 className="font-semibold text-2xl">Fundaciones</h1>
-        {Items.map((item) => (
+        {foundationNames?.map((item: resFoundationHeaders) => (
           <SideBarItem key={item.name} {...item} />
         ))}
       </div>
-      {rol === "superadmin" && (
+      {rol === "superadmin" && !pathname.includes("edit") && (
         <button
           className="mt-4 p-3 w-full flex items-center justify-center group relative overflow-hidden rounded-lg bg-white text-lg shadow"
           onClick={openModal}
@@ -47,7 +50,7 @@ export const SideBar = () => {
         }}
       >
         <div className="w-3/4 flex">
-          <FoundationForm />
+          <FoundationForm close={closeModal} />
           <button
             className="text-primary self-start -ml-8 text-5xl"
             onClick={closeModal}
