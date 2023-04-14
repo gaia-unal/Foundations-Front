@@ -13,7 +13,7 @@ export const CustomSelect = ({ label, ...props }: Props) => {
   return (
     <>
       <label
-        className="block text-base font-medium text-label"
+        className="block mb-2 text-base font-medium text-label"
         htmlFor={props.name}
       >
         {label}
