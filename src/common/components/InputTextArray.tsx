@@ -8,6 +8,7 @@ interface InputTextPropsArray {
   arrayName: string;
   index: number;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export const InputTextArray: FunctionComponent<InputTextPropsArray> = ({
@@ -15,6 +16,7 @@ export const InputTextArray: FunctionComponent<InputTextPropsArray> = ({
   label,
   index,
   arrayName,
+  disabled = false,
   ...props
 }) => {
   const fieldName = arrayName + "." + index + "." + name;
@@ -32,7 +34,8 @@ export const InputTextArray: FunctionComponent<InputTextPropsArray> = ({
         id={fieldName}
         {...field}
         {...props}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        disabled={disabled}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-gray-200 disabled:text-gray-300"
       />
       <ErrorMessage
         name={fieldName}
