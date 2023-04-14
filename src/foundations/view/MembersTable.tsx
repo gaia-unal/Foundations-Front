@@ -8,7 +8,7 @@ import {
   useDeleteMemberMutation,
   useLevelupMemberMutation,
 } from "../../store/fundations/foundation.api";
-import { Header } from "../data/headersMembersTable";
+import { Header } from "../interface/headersMembersTable.interface";
 import { BasicInformationMember } from "../interface/basicInformationMember.interface";
 
 interface MembersTableProps {
