@@ -28,12 +28,13 @@ export const validationSchemaStepForm = [
           .max(new Date(), "Fecha de inicio no es válida"),
         endDate: yup
           .date()
-          .required("Fecha de finalización es requerida")
+          .optional()
           .min(
             yup.ref("startDate"),
             "Fecha de finalización debe ser superior a la fecha de inicio"
           )
           .max(new Date(), "Fecha de finalización no es válida"),
+        completed: yup.boolean().optional(),
       })
     ),
   }),

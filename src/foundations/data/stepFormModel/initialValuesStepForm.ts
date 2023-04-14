@@ -10,6 +10,7 @@ import {
   FamilyInformation,
 } from "../../interface/familyInformation.interface";
 import { fieldsBasicInformation } from "./../inputFieldMember";
+import { member } from "../../interface/member.interface";
 
 const initialValuesBasicInformation: BasicInformationMember =
   fieldsBasicInformation.reduce((acc: any, field) => {
@@ -23,6 +24,7 @@ export const initialValuesFieldsEducation: Education = {
   title: "",
   startDate: "",
   endDate: "",
+  completed: false,
 };
 
 const initialValuesEducationInformation: EducationInformation = {
@@ -49,7 +51,7 @@ const initialValuesActivityInformation: ActivityInformation = {
   activity: [initialValuesFieldsActivity],
 };
 
-export const initialValuesStepForm = {
+export const initialValuesStepForm: member = {
   ...initialValuesBasicInformation,
   ...initialValuesEducationInformation,
   ...initialValuesFamilyInformation,

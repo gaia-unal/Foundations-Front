@@ -1,6 +1,7 @@
 import { FieldArray } from "formik";
+import { CustomCheckbox } from "../../../common/components/CustomCheckbox";
 import { InputTextArray } from "../../../common/components/InputTextArray";
-import { fieldsEducacion } from "../../data/inputFieldMember";
+import { fieldsEducation } from "../../data/inputFieldMember";
 import { initialValuesFieldsEducation } from "../../data/stepFormModel/initialValuesStepForm";
 import {
   Education,
@@ -20,14 +21,26 @@ export const EducationForm = ({ education }: EducationInformation) => {
             {education.map((education: Education, index) => (
               <div key={index}>
                 <div className="grid grid-cols-2 gap-4 border-b-2 pb-4 mb-8">
-                  {fieldsEducacion.map((field) => (
+                  {fieldsEducation.map((field) => (
                     <InputTextArray
                       key={field.name}
                       index={index}
                       arrayName="education"
+                      disabled={
+                        field.name === "endDate" && !!education.completed
+                      }
                       {...field}
                     />
                   ))}
+                  <div className="self-center">
+                    <CustomCheckbox
+                      key={"completed"}
+                      label="Estudio completado?"
+                      name="completed"
+                      index={index}
+                      arrayName="education"
+                    />
+                  </div>
                   <div className="flex items-end justify-start">
                     <button
                       type="button"
