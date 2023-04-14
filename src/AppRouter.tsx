@@ -15,15 +15,17 @@ export const AppRouter = () => {
   return (
     <>
       <Suspense fallback={<LoadingPage />}>
-        <Routes>
-          {status === "authenticated" ? (
-            <>
-              <Route path="/*" element={<PrivateRouter />} />
-            </>
-          ) : (
-            <Route path="/*" element={<PublicRouter />} />
-          )}
-        </Routes>
+        <div className="h-screen">
+          <Routes>
+            {status === "authenticated" ? (
+              <>
+                <Route path="/*" element={<PrivateRouter />} />
+              </>
+            ) : (
+              <Route path="/*" element={<PublicRouter />} />
+            )}
+          </Routes>
+        </div>
       </Suspense>
     </>
   );
