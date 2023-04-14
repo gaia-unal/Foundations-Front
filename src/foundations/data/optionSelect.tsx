@@ -31,10 +31,6 @@ const optionFamily = [
     label: "Identificación",
     value: "identification",
   },
-  {
-    label: "Fecha de nacimiento",
-    value: "birthDate",
-  },
 ];
 
 const optionMemberInformation = [
@@ -50,13 +46,8 @@ const optionMemberInformation = [
     label: "Identificación",
     value: "identification",
   },
-
   {
-    label: "Fecha de nacimiento",
-    value: "birthDate",
-  },
-  {
-    label: "correo electrónico",
+    label: "Correo electrónico",
     value: "email",
   },
   {
@@ -66,11 +57,6 @@ const optionMemberInformation = [
   {
     label: "Dirección",
     value: "address",
-  },
-
-  {
-    label: "Nivel",
-    value: "level",
   },
 ];
 
@@ -91,7 +77,7 @@ const optionEducation = [
 
 export const optionsCategories = [
   {
-    value: "member",
+    value: "basic_info",
     label: "Información miembro",
     options: optionMemberInformation,
   },
