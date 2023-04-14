@@ -1,28 +1,22 @@
+import { keysTranslate } from "../../common/data/keyTranslate";
 import { ReviewItem } from "../components/ReviewItem";
+import { transformMember } from "../helper/transformMember";
 import { member } from "../interface/member.interface";
-const keysTranslate = {
-  name: "Nombre",
-  lastName: "Apellido",
-  identification: "Identificación",
-  address: "Dirección",
-  phone: "Teléfono",
-  email: "Correo electrónico",
-  birthDate: "Fecha de nacimiento",
-  education: "Estudio",
-  family: "Familia",
-  activity: "Actividad comercial",
-};
 
 export const ReviewNewMember = ({ values }: { values: member }) => {
+  // const { level, ...valuesForm } = values;
+
+  const valuesWithoutIds = transformMember(values);
+
   return (
     <>
       <div className="w-full mt-6 bg-white">
         <h1 className="text-xl font-semibold border-b-2 mb-2">
-          Informacion personal
+          Información personal
         </h1>
         <div className="grid grid-cols-2">
-          {Object.entries(values).map(([key, value]) =>
-            key !== "education" && key !== "family" && key !== "activity" ? (
+          {Object.entries(valuesWithoutIds).map(([key, value]) =>
+            typeof value === "string" ? (
               <div key={key} className="mb-2 flex flex-col">
                 <h1 className="text-lg font-semibold">
                   {keysTranslate[key as keyof typeof keysTranslate]}
