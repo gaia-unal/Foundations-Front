@@ -1,33 +1,110 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { InputText } from "../../common/components/InputText";
-import { useAppDispatch } from "../../hooks/useRedux";
+import { useAppSelector } from "../../hooks/useRedux";
+import {
+  useCreateFoundationMutation,
+  useUpdateFoundationMutation,
+} from "../../store/fundations/foundation.api";
 import { textFieldsNewFoundation } from "../data/inputFieldFoundation";
 
-export const FoundationForm = () => {
+interface Props {
+  close: () => void;
+}
+
+export const FoundationForm = ({ close }: Props) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+
+  const [
+    createFoundation,
+    { isError: isErrorCreatingFoundation, isSuccess, status },
+  ] = useCreateFoundationMutation();
+
+  const [updateFoundation, { isError: isErrorUpdatingFoundation }] =
+    useUpdateFoundationMutation();
+
+  const { activeFoundation } = useAppSelector((state) => state.foundation);
+  const { id } = activeFoundation;
+  const isEditing = pathname.includes("edit");
 
   return (
     <div className="bg-white w-full p-10 rounded-xl">
       <h1 className="block text-3xl font-medium text-primary mb-6">
-        Añadir fundación
+        {!isEditing ? "Crear fundación" : "Editar fundación"}
       </h1>
       <Formik
-        initialValues={{
-          identification: "",
-          name: "",
-          adminEmail: "",
-          address: "",
-          email: "",
-          phone: "",
-          description: "",
-          logo: "",
-        }}
-        onSubmit={(values, { resetForm }) => {
-          console.log(values);
-          resetForm();
+        initialValues={
+          isEditing
+            ? {
+                identification: activeFoundation.identification,
+                name: activeFoundation.name,
+                adminEmail: activeFoundation.adminEmail,
+                address: activeFoundation.address,
+                email: activeFoundation.email,
+                phone: activeFoundation.phone,
+                description: activeFoundation.description,
+                logo: "",
+              }
+            : {
+                identification: "",
+                name: "",
+                adminEmail: "",
+                address: "",
+                email: "",
+                phone: "",
+                description: "",
+                logo: "",
+              }
+        }
+        onSubmit={async ({ ...values }, { resetForm }) => {
+          if (!isEditing) {
+            await createFoundation(values);
+
+            if (!isErrorCreatingFoundation) {
+              close();
+
+              Swal.fire({
+                title: "Fundación creada",
+                text: "La fundación se ha creado correctamente",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/");
+                }
+              });
+              resetForm();
+            } else {
+              Swal.fire({
+                title: "Error",
+                text: "Ha ocurrido un error al crear la fundación",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+              });
+            }
+          } else {
+            await updateFoundation({
+              foundation: values,
+              id: id,
+            });
+
+            if (!isErrorUpdatingFoundation) {
+              Swal.fire({
+                title: "Fundación actualizada",
+                text: "La fundación se ha actualizado correctamente",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/");
+                }
+              });
+              resetForm();
+            }
+          }
         }}
         validationSchema={Yup.object({
           identification: Yup.string()
@@ -80,8 +157,17 @@ export const FoundationForm = () => {
             >
               <div className="absolute inset-0 w-3 bg-slate-600 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
               <span className="relative text-black group-hover:text-white">
-                Crear fundación
+                Confirmar
               </span>
+            </button>
+            <button
+              className=" h-12 w-1/3 overflow-hidden rounded-lg bg-red-600 text-lg shadow text-white"
+              onClick={() => {
+                isEditing ? navigate(-1) : close();
+              }}
+              type="button"
+            >
+              Cancelar
             </button>
           </div>
         </Form>
