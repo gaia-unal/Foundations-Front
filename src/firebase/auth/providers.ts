@@ -17,8 +17,13 @@ export const checkClaims = async (user: User) => {
   localStorage.setItem("token", token);
   const decodeToken: any = await jwtDecode(token);
   let rol = "";
+  console.log(decodeToken);
+
   if (decodeToken.rol) {
     rol = decodeToken.rol;
+    if (rol === "admin") {
+      rol = "admin" + decodeToken.foundationId;
+    }
   } else {
     rol = "user";
   }
