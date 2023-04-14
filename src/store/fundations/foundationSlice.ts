@@ -1,37 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { foundation } from "../../foundations/interface/foundation";
+import { BasicInformationMember } from "../../foundations/interface/basicInformationMember.interface";
+import { member } from "../../foundations/interface/member.interface";
+import { initialValuesStepForm } from "../../foundations/data/stepFormModel/initialValuesStepForm";
+
+interface foundationsSliceState {
+  id: string;
+  name: string;
+  identification: string;
+  address: string;
+  adminEmail: string;
+  phone: string;
+  email: string;
+  logo: string;
+  description: string;
+  created_at: string;
+  members: BasicInformationMember[];
+}
 
 interface foundationState {
-  foundations: foundation[];
-  activeFoundation: foundation | undefined;
-  foundationLoading: boolean;
+  activeFoundation: foundationsSliceState;
+  activeMember: member;
+  queryMembers: member[];
 }
 
 const initialState: foundationState = {
-  foundations: [],
-  activeFoundation: undefined,
-  foundationLoading: false,
+  activeFoundation: {
+    id: "",
+    identification: "",
+    name: "",
+    address: "",
+    adminEmail: "",
+    phone: "",
+    email: "",
+    logo: "",
+    description: "",
+    created_at: "",
+    members: [],
+  },
+  activeMember: initialValuesStepForm,
+  queryMembers: [],
 };
 
 export const foundationSlice = createSlice({
   name: "foundations",
   initialState,
   reducers: {
-    getFoundations: (state, action) => {
-      state.foundations = action.payload;
-      state.foundationLoading = false;
+    setActiveFoundation: (state, { payload }) => {
+      state.activeFoundation = payload;
+      state.activeMember = initialState.activeMember;
     },
-    getActiveFoundation: (state, { payload }) => {
-      state.activeFoundation = state.foundations.find(
-        (foundation) => foundation.id === payload
-      );
-      state.foundationLoading = false;
+    setActiveMember: (state, { payload }) => {
+      state.activeMember = payload;
     },
-    setFoundationLoading: (state) => {
-      state.foundationLoading = true;
+    setQueryMembers: (state, { payload }) => {
+      state.queryMembers = payload;
     },
   },
 });
 
-export const { getActiveFoundation, getFoundations, setFoundationLoading } =
+export const { setActiveFoundation, setActiveMember, setQueryMembers } =
   foundationSlice.actions;
