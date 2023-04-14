@@ -45,7 +45,7 @@ export const fieldsBasicInformation: InputText[] = [
   },
 ];
 
-export const fieldsEducacion: InputText[] = [
+export const fieldsEducation: InputText[] = [
   {
     name: "level",
     type: "text",
