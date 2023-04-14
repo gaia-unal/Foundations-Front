@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  getIdToken,
   getIdTokenResult,
   GoogleAuthProvider,
   sendPasswordResetEmail,
@@ -12,7 +13,7 @@ import jwtDecode from "jwt-decode";
 import { FirebaseAuth } from "../config";
 
 export const checkClaims = async (user: User) => {
-  const { token } = await getIdTokenResult(user);
+  const token = await getIdToken(user, true);
   localStorage.setItem("token", token);
   const decodeToken: any = await jwtDecode(token);
   let rol = "";
