@@ -20,4 +20,7 @@ export const keysTranslate = {
   activity: "Actividad comercial",
   id: "ID",
   date: "Fecha de adquisición nivel",
+  adminEmail: "Email del administrador",
+  creationDate: "Fecha de creación",
+  logo: "Logo",
 };
