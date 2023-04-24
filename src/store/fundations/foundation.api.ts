@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { foundation } from "../../foundations/interface/foundation";
-import { BasicInformationMember } from "../../foundations/interface/basicInformationMember.interface";
 import { member } from "../../foundations/interface/member.interface";
 
 export interface resFoundationHeaders {
@@ -41,7 +40,7 @@ export const foundationApi = createApi({
         method: "PATCH",
         body: foundation,
       }),
-      invalidatesTags: ["Foundation"],
+      invalidatesTags: ["Foundation", "Member"],
     }),
     createFoundation: build.mutation<foundation, foundation>({
       query: (foundation) => ({
@@ -106,6 +105,13 @@ export const foundationApi = createApi({
       }),
       providesTags: ["Member"],
     }),
+    searchBirthday: build.query<member[], string>({
+      query: (month) => ({
+        url: `member/birthday?month=${month}`,
+        method: "GET",
+      }),
+      providesTags: ["Member"],
+    }),
   }),
 });
 
@@ -121,4 +127,5 @@ export const {
   useUpdateMemberMutation,
   useLevelupMemberMutation,
   useLazyCustomSearchQuery,
+  useLazySearchBirthdayQuery,
 } = foundationApi;
