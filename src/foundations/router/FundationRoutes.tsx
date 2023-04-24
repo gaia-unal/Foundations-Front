@@ -38,7 +38,7 @@ export const FoundationRoutes = () => {
 
   return (
     <>
-      <FoundationHeader name={foundation?.name} />
+      <FoundationHeader logo={foundation?.logo} name={foundation?.name} />
       <Routes>
         <Route
           path="/about"

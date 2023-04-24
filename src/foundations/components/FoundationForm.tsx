@@ -9,6 +9,8 @@ import {
   useUpdateFoundationMutation,
 } from "../../store/fundations/foundation.api";
 import { textFieldsNewFoundation } from "../data/inputFieldFoundation";
+import { useState } from "react";
+import { uploadImage } from "../helper/uploadImage";
 
 interface Props {
   close: () => void;
@@ -17,6 +19,7 @@ interface Props {
 export const FoundationForm = ({ close }: Props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [LogoFile, setLogoFile] = useState<File>();
 
   const [
     createFoundation,
@@ -25,10 +28,16 @@ export const FoundationForm = ({ close }: Props) => {
 
   const [updateFoundation, { isError: isErrorUpdatingFoundation }] =
     useUpdateFoundationMutation();
-
   const { activeFoundation } = useAppSelector((state) => state.foundation);
+
   const { id } = activeFoundation;
   const isEditing = pathname.includes("edit");
+
+  const onChangeLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setLogoFile(e.target.files[0]);
+    }
+  };
 
   return (
     <div className="bg-white w-full p-10 rounded-xl">
@@ -46,7 +55,6 @@ export const FoundationForm = ({ close }: Props) => {
                 email: activeFoundation.email,
                 phone: activeFoundation.phone,
                 description: activeFoundation.description,
-                logo: "",
               }
             : {
                 identification: "",
@@ -56,12 +64,13 @@ export const FoundationForm = ({ close }: Props) => {
                 email: "",
                 phone: "",
                 description: "",
-                logo: "",
               }
         }
         onSubmit={async ({ ...values }, { resetForm }) => {
           if (!isEditing) {
-            await createFoundation(values);
+            const imageUrl = await uploadImage(LogoFile!);
+
+            await createFoundation({ ...values, logo: imageUrl });
 
             if (!isErrorCreatingFoundation) {
               close();
@@ -86,8 +95,17 @@ export const FoundationForm = ({ close }: Props) => {
               });
             }
           } else {
+            let imageUpdatedUrl = activeFoundation.logo;
+            if (LogoFile) {
+              imageUpdatedUrl = await uploadImage(LogoFile!);
+            }
+            console.log("llegue");
+
             await updateFoundation({
-              foundation: values,
+              foundation: {
+                ...values,
+                logo: imageUpdatedUrl,
+              },
               id: id,
             });
 
@@ -134,6 +152,22 @@ export const FoundationForm = ({ close }: Props) => {
             {textFieldsNewFoundation.map((field) => (
               <InputText key={field.name} {...field} />
             ))}
+            <div>
+              <label
+                htmlFor="logo"
+                className="block mb-2 text-base font-medium text-label"
+              >
+                Logo
+              </label>
+              <Field
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="logo"
+                type="file"
+                onChange={onChangeLogo}
+                accept="image/*"
+              />
+              <ErrorMessage name="description" />
+            </div>
             <div>
               <label
                 htmlFor="description"

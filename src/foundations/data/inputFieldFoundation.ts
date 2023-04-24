@@ -37,16 +37,4 @@ export const textFieldsNewFoundation: InputText[] = [
     label: "E-mail",
     placeholder: "E-mail de la fundación",
   },
-  {
-    name: "logo",
-    type: "file",
-    label: "Logo",
-    placeholder: "Logo de la fundación",
-  },
-  // {
-  //   name: "description",
-  //   type: "textarea",
-  //   label: "Descripción",
-  //   placeholder: "Descripción de la fundación",
-  // },
 ];
