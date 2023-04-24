@@ -8,14 +8,17 @@ import {
 } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDeleteFoundationMutation } from "../../store/fundations/foundation.api";
+import { useAppSelector } from "../../hooks/useRedux";
 
 interface Props {
   name: string | undefined;
+  logo: string | undefined;
 }
 
-export const FoundationHeader = ({ name }: Props) => {
+export const FoundationHeader = ({ name, logo }: Props) => {
   const navigate = useNavigate();
   const { uid } = useParams();
+  const { rol } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
   const [deleteFoundation, { isLoading: isDeletingFoundation }] =
     useDeleteFoundationMutation();
@@ -48,19 +51,23 @@ export const FoundationHeader = ({ name }: Props) => {
       <div className="flex items-center justify-between border-b-2 pb-2 border-black ">
         <h1 className="text-4xl font-bold">{name}</h1>
         <div className="flex gap-2">
-          <Link
-            to={`/foundation/${uid}/addmembers`}
-            className="bg-primary text-white px-4 py-2 rounded-md"
-            aria-disabled={pathname === `/foundation/${uid}/addmembers`}
-          >
-            Agregar miembro
-          </Link>
-          <button
-            onClick={onClickDelete}
-            className="bg-red-500 text-white px-4 py-2 rounded-md"
-          >
-            Eliminar fundación
-          </button>
+          {(rol === "superadmin" || rol === "admin" + uid) && (
+            <>
+              <Link
+                to={`/foundation/${uid}/addmembers`}
+                className="bg-primary text-white px-4 py-2 rounded-md"
+                aria-disabled={pathname === `/foundation/${uid}/addmembers`}
+              >
+                Agregar miembro
+              </Link>
+              <button
+                onClick={onClickDelete}
+                className="bg-red-500 text-white px-4 py-2 rounded-md"
+              >
+                Eliminar fundación
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -88,12 +95,15 @@ export const FoundationHeader = ({ name }: Props) => {
               Miembros
             </NavLink>
           </div>
-          <Link
-            to={`/foundation/${uid}/edit`}
-            className="bg-black text-white px-2 text-center flex justify-center items-center rounded-md"
-          >
-            <BsPencilFill />
-          </Link>
+          {rol === "superadmin" ||
+            (rol === "admin" + uid && (
+              <Link
+                to={`/foundation/${uid}/edit`}
+                className="bg-black text-white px-2 text-center flex justify-center items-center rounded-md"
+              >
+                <BsPencilFill />
+              </Link>
+            ))}
         </div>
       )}
     </div>
