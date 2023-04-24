@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { foundation } from "../../foundations/interface/foundation";
+import { initialValuesStepForm } from "../../foundations/data/stepFormModel/initialValuesStepForm";
 import { BasicInformationMember } from "../../foundations/interface/basicInformationMember.interface";
 import { member } from "../../foundations/interface/member.interface";
-import { initialValuesStepForm } from "../../foundations/data/stepFormModel/initialValuesStepForm";
 
 interface foundationsSliceState {
   id: string;
@@ -56,8 +55,15 @@ export const foundationSlice = createSlice({
     setQueryMembers: (state, { payload }) => {
       state.queryMembers = payload;
     },
+    removeQueryMembers: (state) => {
+      state.queryMembers = [];
+    },
   },
 });
 
-export const { setActiveFoundation, setActiveMember, setQueryMembers } =
-  foundationSlice.actions;
+export const {
+  setActiveFoundation,
+  setActiveMember,
+  setQueryMembers,
+  removeQueryMembers,
+} = foundationSlice.actions;
