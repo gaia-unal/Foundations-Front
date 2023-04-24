@@ -3,6 +3,7 @@ import { SiConfluence } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { startLogout } from "../../store/auth/authThunk";
+import { removeQueryMembers } from "../../store/fundations/foundationSlice";
 
 export const Navbar = () => {
   const { displayName, photoURL } = useAppSelector((state) => state.auth);
@@ -10,6 +11,7 @@ export const Navbar = () => {
   const dispatch = useAppDispatch();
   const onClickHome = () => {
     navigate("/");
+    dispatch(removeQueryMembers());
   };
   const onClickLogout = () => {
     dispatch(startLogout());
