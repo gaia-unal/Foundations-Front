@@ -7,6 +7,7 @@ import { useLazyCustomSearchQuery } from "../../store/fundations/foundation.api"
 import { optionsCategories } from "../data/optionSelect";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { setQueryMembers } from "../../store/fundations/foundationSlice";
+import Swal from "sweetalert2";
 
 export const QueryForm = () => {
   const [triggerSearch] = useLazyCustomSearchQuery();
@@ -18,6 +19,12 @@ export const QueryForm = () => {
     param: string;
   }) => {
     const { data: resultMembers = [] } = await triggerSearch({ ...values });
+    if (resultMembers.length === 0)
+      return Swal.fire({
+        title: "No se encontraron miembros",
+        icon: "info",
+        confirmButtonText: "Aceptar",
+      });
     dispatch(setQueryMembers(resultMembers));
   };
 
