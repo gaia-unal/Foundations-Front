@@ -6,8 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - '${PORT}:8000'
+    expose:
+      - 8000
     networks:
       - gaia
 networks:
