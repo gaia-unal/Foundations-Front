@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: ${COMPOSE_PROJECT_NAME}_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '${PORT}:8000'
+    networks:
+      - gaia
+networks:
+  backend:
+    name: ${COMPOSE_PROJECT_NAME}_backend
+  gaia:
+    name: gaia
+    external: true
