@@ -5,9 +5,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_frontend
     build:
       context: .
-      dockerfile: Dockerfile
-    expose:
-      - 8000
+      dockerfile: Dockerfile.prod
     networks:
       - gaia
 networks:
